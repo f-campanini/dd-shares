@@ -12,4 +12,4 @@ WORKDIR /app
 COPY dd-java-agent.jar .
 COPY --from=builder /target/demo-0.0.1-SNAPSHOT.jar .
 
-ENTRYPOINT ["java", "-javaagent:./dd-java-agent.jar", "-Ddd.service=dd-partner-demo", "-Ddd.version=0.0.1", "-Ddd.tags=partner.class:workshop,partner.app:javaspringboot-dummy,owner:ddog,customer:abc,team:team",  "-jar", "./cloud_consumer-1.0-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-javaagent:./dd-java-agent.jar", "-Ddd.service=dd-partner-demo", "-Ddd.version=0.0.1", "-Ddd.tags=partner.class:workshop,partner.app:javaspringboot-dummy,owner:ddog,customer:abc,team:team",  "-jar", "./demo-0.0.1-SNAPSHOT.jar"]
