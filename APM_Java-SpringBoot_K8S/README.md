@@ -13,7 +13,7 @@ Run the following commands from the root folder of the current project.
 We are using the Datadog Agent configuration gathered from our [Daemonset Installation docs](https://docs.datadoghq.com/agent/kubernetes/?tab=daemonset#installation). 
 
 
-But this will require those steps in those Daemonset installation docs. Namely running the following
+But this will require those steps in those Daemonset installation docs. Namely running the following (having the cluster up ... so ... minikube start)
 
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/DataDog/datadog-agent/master/Dockerfiles/manifests/rbac/clusterrole.yaml"

@@ -4,7 +4,7 @@ WORKDIR .
 COPY pom.xml .
 RUN mvn -e -B dependency:resolve
 
-RUN mvn clean -e -B package
+RUN mvn clean -e -B package -X
 
 # RTSDK Java
 FROM openjdk:11-jre-slim-buster

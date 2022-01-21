@@ -37,3 +37,6 @@ build/
 
 ### Maven local config
 .mvn/
+
+### ignore dd-java-agent.jar
+dd-java-agent.jar
