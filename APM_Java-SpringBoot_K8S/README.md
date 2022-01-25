@@ -184,6 +184,11 @@ kubectl edit ds datadog-agent -n default
 ```
 Save and close it. The daemonset will restart. And the application will start getting traced.
 
+connect to the shell of a running container:
+```bash
+kubectl exec -i -t demo-6668798cc8-l2wbh -- /bin/bash
+```
+
 If you are using minikube, when you are done you can stop it:
 ```bash
 minikube stop
@@ -196,6 +201,9 @@ https://minikube.sigs.k8s.io/docs/start/
 
 Spring Boot kubernetes
 https://spring.io/guides/gs/spring-boot-kubernetes/
+
+Dockerizing your Spring Boot app:
+https://medium.com/geekculture/docker-basics-and-easy-steps-to-dockerize-spring-boot-application-17608a65f657
 
 Docker-hub repository for the project:
 https://hub.docker.com/r/dockerfradd/public-repo/tags
