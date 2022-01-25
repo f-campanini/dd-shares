@@ -525,7 +525,8 @@ spec:
           command: ["agent", "run"]
           resources: {}
           ports:
-            - containerPort: 8125
+            - hostPort: 8125
+              containerPort: 8125
               name: dogstatsdport
               protocol: UDP
           env:
