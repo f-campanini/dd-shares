@@ -1,0 +1,12 @@
+{"time":"2022-02-04 14:49:40,987", "name": "root",     "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 14:50:07,334", "name": "root",     "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 15:44:01,103", "name": "root",       "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 15:44:57,484", "name": "root", "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 15:47:01,539", "name": "root", "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 15:55:30,250", "name": "root", "level": "INFO", "message": "Sign up"}
+{"time":"2022-02-04 16:10:36,854", "name": "root", "level": "INFO", "message": "this file has 10 words"}
+this file has 10 words
+{"timestamp": "2022-02-04T19:15:49.877835Z", "level": "INFO", "name": "__main__", "message": "message"}
+{"timestamp": "2022-02-04T19:20:04.345746Z", "level": "INFO", "name": "__main__", "message": "message", "dd.trace_id": 11358169777091077368, "dd.span_id": 10408950963809597925}
+{"timestamp": "2022-02-04T19:22:53.023758Z", "level": "INFO", "name": "__main__", "message": "message", "dd.trace_id": "10757167972244692274", "dd.span_id": "17946703329510150602"}
+{"timestamp": "2022-02-04T19:27:39.007483Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "10595304924782731523", "dd.trace_id": "5808393148430880228"}

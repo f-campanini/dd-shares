@@ -20,7 +20,7 @@ metadata:
   labels: {}
 type: Opaque
 data:
-  api-key:  #PUT_YOUR_BASE64_ENCODED_API_KEY_HERE
+  api-key: #PUT_YOUR_BASE64_ENCODED_API_KEY_HERE
 ---
 # Source: datadog/templates/secret-cluster-agent-token.yaml
 apiVersion: v1
@@ -31,7 +31,7 @@ metadata:
   labels: {}
 type: Opaque
 data:
-  token:  # PUT_A_BASE64_ENCODED_RANDOM_STRING_HERE
+  token: # PUT_A_BASE64_ENCODED_RANDOM_STRING_HERE (needs to be at least 32 characters a-zA-z)
 ---
 # Source: datadog/templates/install_info-configmap.yaml
 apiVersion: v1
@@ -525,7 +525,8 @@ spec:
           command: ["agent", "run"]
           resources: {}
           ports:
-            - containerPort: 8125
+            - hostPort: 8125
+              containerPort: 8125
               name: dogstatsdport
               protocol: UDP
           env:
@@ -576,6 +577,8 @@ spec:
               value: "6000"
             - name: DD_KUBELET_TLS_VERIFY
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           volumeMounts:
             - name: installinfo
               subPath: install_info
@@ -691,6 +694,8 @@ spec:
               value: "/var/run/datadog/dsd.socket"
             - name: DD_KUBELET_TLS_VERIFY # poor security to fix an issue
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           volumeMounts:
             - name: config
               mountPath: /etc/datadog-agent
@@ -756,6 +761,8 @@ spec:
               value: "true"
             - name: DD_KUBELET_TLS_VERIFY
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           volumeMounts:
             - name: config
               mountPath: /etc/datadog-agent
@@ -823,6 +830,8 @@ spec:
               value: "INFO"
             - name: DD_KUBELET_TLS_VERIFY
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           resources: {}
           volumeMounts:
             - name: logdatadog
@@ -912,6 +921,8 @@ spec:
               value: "/var/run/datadog/dsd.socket"
             - name: DD_KUBELET_TLS_VERIFY
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           volumeMounts:
             - name: config
               mountPath: /etc/datadog-agent
@@ -998,6 +1009,8 @@ spec:
               value: "false"
             - name: KUBERNETES
               value: "yes"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           resources: {}
         - name: seccomp-setup
           image: "gcr.io/datadoghq/agent:7.32.4"
@@ -1175,6 +1188,8 @@ spec:
               value: "20m"
             - name: DD_KUBELET_TLS_VERIFY
               value: "false"
+            - name: DD_CLUSTER_NAME
+              value: "minikube"
           livenessProbe:
             failureThreshold: 6
             httpGet:

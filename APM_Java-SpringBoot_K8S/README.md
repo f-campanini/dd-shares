@@ -194,6 +194,15 @@ If you are using minikube, when you are done you can stop it:
 minikube stop
 ```
 
+## If you are using minikube
+
+For all the container, add the variable DD_CLUSTER_NAME, as this variable can't be extrated from cloud provider metadata
+- name: DD_CLUSTER_NAME
+  value: "minikube"
+Do the same with DD_KUBELET_TLS_VERIFY to allow the agent to communicate with kubelet
+- name: DD_KUBELET_TLS_VERIFY
+  value: "false"
+
 ## References
 
 Getting started with minikube
@@ -219,3 +228,6 @@ https://github.com/f-campanini/dd-shares
 
 Tracing JAVA apps:
 https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=containers
+
+Metrics using statsd
+https://docs.datadoghq.com/developers/dogstatsd/?tab=kubernetes#agent

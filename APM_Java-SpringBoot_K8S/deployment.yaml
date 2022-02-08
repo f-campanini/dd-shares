@@ -18,7 +18,7 @@ spec:
         app: demo
     spec:
       containers:
-      - image: dockerfradd/public-repo
+      - image: dockerfradd/public-repo:v0.3-debug
         name: public-repo
         resources: {}
         env:
