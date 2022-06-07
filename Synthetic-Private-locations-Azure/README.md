@@ -4,7 +4,7 @@ You should follow the below steps
 
 ## Requirements
 
-access to az cli either using the az-cli tool or the online az bash shell within the AZ portal)
+access to az cli either using the az-cli tool or the online az bash shell within the AZ portal
 
 ## Steps
 
