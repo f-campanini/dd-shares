@@ -4,7 +4,7 @@ You should follow the below steps
 
 ## Requirements
 
-access to az cli either using the az-cli tool or the online az bash shell within the AZ portal)
+access to az cli either using the az-cli tool or the online az bash shell within the AZ portal
 
 ## Steps
 
@@ -126,6 +126,18 @@ mv /etc/datadog/worker-config-azure-test-39880fe5803fbb963d2b7275265a7204.json /
 As last step, you can execute the worker (Datadog private locations application):
 
 ```bash
+cd ~
+node dist/worker.js --config=/etc/datadog/synthetics-check-runner.json
+```
+
+10. if the Azure Shell disconnect (timeout), login again to Azure, connect to the right sandbox, and open the bash CLI then follow the below steps to start the worker again
+
+```bash
+ACI_PERS_RESOURCE_GROUP=testResourceGroup
+DD_PL_INSTANCE_NAME=dd-private-locations
+
+az container exec --exec-command "/bin/bash" --name $DD_PL_INSTANCE_NAME --resource-group $ACI_PERS_RESOURCE_GROUP
+
 cd ~
 node dist/worker.js --config=/etc/datadog/synthetics-check-runner.json
 ```
