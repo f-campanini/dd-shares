@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-otel
+  labels:
+    app: flask-otel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-otel
+  template:
+    metadata:
+      labels:
+        app: flask-otel
+    spec:
+      containers:
+      - name: flask-otel
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: {{ .Values.otelCollectorEndpoint | quote }}

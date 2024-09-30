@@ -1,0 +1,14 @@
+# Image configuration
+image:
+  repository: dockerfradd/flask-otel
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# OpenTelemetry Collector endpoint
+otelCollectorEndpoint: "http://my-opentelemetry-collector.default:4317"
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+data:
+  error-log-level: debug
+  enable-opentelemetry: "true"
+  opentelemetry-collector-host: "my-opentelemetry-collector.default.svc.cluster.local"
+  opentelemetry-collector-port: "4317"
+  opentelemetry-service-name: "nginx-ingress"
+  otel-sampler: AlwaysOn
+  otlp-collector-host: "my-opentelemetry-collector.default.svc.cluster.local"
+  otel-sampler-ratio: "1.0"  # <--- Set this to 1.0 as suggested

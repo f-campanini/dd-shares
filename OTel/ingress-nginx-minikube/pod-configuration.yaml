@@ -1,0 +1,176 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    checksum/config: 5a6c3dbbe41aa8b4a9ab881248dc449a44f2c66e92dc7211badbd6f8eff67b00
+  creationTimestamp: "2024-09-05T17:58:36Z"
+  generateName: my-opentelemetry-collector-5c6785d5d7-
+  labels:
+    app.kubernetes.io/instance: my-opentelemetry-collector
+    app.kubernetes.io/name: opentelemetry-collector
+    component: standalone-collector
+    pod-template-hash: 5c6785d5d7
+  name: my-opentelemetry-collector-5c6785d5d7-8tmnh
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: my-opentelemetry-collector-5c6785d5d7
+    uid: 491fc4b9-9b7f-455e-b0fa-255a25fce6ba
+  resourceVersion: "16295"
+  uid: c2c00157-6c7b-40c5-a8d6-5a56fd942ec8
+spec:
+  containers:
+  - args:
+    - --config=/conf/relay.yaml
+    env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.podIP
+    - name: DD_API_KEY
+      valueFrom:
+        secretKeyRef:
+          key: api-key
+          name: datadog-api-key
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: spec.nodeName
+    image: otel/opentelemetry-collector-contrib:0.102.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 13133
+        scheme: HTTP
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: opentelemetry-collector
+    ports:
+    - containerPort: 6831
+      name: jaeger-compact
+      protocol: UDP
+    - containerPort: 14250
+      name: jaeger-grpc
+      protocol: TCP
+    - containerPort: 14268
+      name: jaeger-thrift
+      protocol: TCP
+    - containerPort: 4317
+      name: otlp
+      protocol: TCP
+    - containerPort: 4318
+      name: otlp-http
+      protocol: TCP
+    - containerPort: 9411
+      name: zipkin
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 13133
+        scheme: HTTP
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources: {}
+    securityContext: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /conf
+      name: opentelemetry-collector-configmap
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-6zkb5
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: my-opentelemetry-collector
+  serviceAccountName: my-opentelemetry-collector
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - configMap:
+      defaultMode: 420
+      items:
+      - key: relay
+        path: relay.yaml
+      name: my-opentelemetry-collector
+    name: opentelemetry-collector-configmap
+  - name: kube-api-access-6zkb5
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-05T17:58:36Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-05T17:58:39Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-05T17:58:39Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-05T17:58:36Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://7b40d2c12134d2e654080985f5a05c8105efd5db7e46cf2cb969c2600c593f61
+    image: otel/opentelemetry-collector-contrib:0.102.0
+    imageID: docker-pullable://otel/opentelemetry-collector-contrib@sha256:26bce721ca2f83db1c2c4e8873514dfe5b3973401fe88a1208efdc74e32840c1
+    lastState: {}
+    name: opentelemetry-collector
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-09-05T17:58:37Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 10.244.0.18
+  podIPs:
+  - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-09-05T17:58:36Z"

@@ -1,0 +1,57 @@
+image:
+  repository: otel/opentelemetry-collector-contrib
+  tag: 0.102.0
+
+mode: deployment
+
+config:
+  extensions: 
+    health_check: {}
+  connectors:
+    datadog/connector:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:2000
+
+  processors:
+    batch:
+      timeout: 1s  # Optional: Maximum time to wait before sending a batch, default is 200ms
+      send_batch_size: 512  # Optional: Maximum number of items to batch, default is 8192
+    resource:
+      attributes:
+        - key: deployment.environment
+          value: production
+          action: upsert
+
+  exporters:
+    logging:
+      loglevel: debug
+    debug:
+      verbosity: detailed
+
+  service:
+    extensions: 
+      - health_check
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [resource, batch]
+        exporters: [debug, logging]
+      metrics:
+        receivers: [otlp]
+        processors: [batch, resource]
+        exporters: [debug, logging]
+      logs:
+        receivers: [otlp]
+        processors: [resource, batch]
+        exporters: [debug, logging]
+
+extraEnvs:
+  - name: NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName 
