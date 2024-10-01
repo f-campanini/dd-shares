@@ -1,0 +1,15 @@
+version: '3.7'
+  
+services:
+    
+  dd-private-location:
+    image: gcr.io/datadoghq/synthetics-private-location-worker:latest
+    volumes:
+      - share-data:/:/etc/datadog
+
+volumes:
+  share-data:
+    driver: azure_file
+    driver_opts:
+      share_name: acishare
+      storage_account_name: frastorageaccount12550

@@ -1,0 +1,17 @@
+# encoding: utf-8
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Memorable name for your
+VM_NAME = 'datadog-iot-agent'
+
+# VM User — 'vagrant' by default
+VM_USER = 'vagrant'
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.hostname = VM_NAME
+  config.vm.synced_folder "./data", "/home/vagrant/data", create:true
+  config.vm.provision :file, source: '~/.sandbox.conf.sh', destination: '~/.sandbox.conf.sh'
+  config.vm.provision "shell", path: "./setup.sh", privileged: false
+end

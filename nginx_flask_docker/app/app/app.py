@@ -1,4 +1,4 @@
-from ddtrace import tracer, patch_all; patch_all(logging=True)
+from ddtrace import tracer
 from flask import Flask
 import logging
 

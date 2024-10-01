@@ -1,0 +1,28 @@
+# This will create a Deployment for a single Redis pod (replicas: 1) 
+# This configuration has NO Autodiscovery Annotations so it will rely on
+# the existing redisdb.d/auto_conf.yaml file to set this up
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:     
+      labels:
+        app: redis
+        env: prod
+        service: redis
+        version: "1.1"
+    spec:
+      containers:
+        - name: my-redis
+          image: redis:latest
+          ports:
+            - name: redis-port
+              containerPort: 6379

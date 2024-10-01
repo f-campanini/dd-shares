@@ -10,3 +10,8 @@ this file has 10 words
 {"timestamp": "2022-02-04T19:20:04.345746Z", "level": "INFO", "name": "__main__", "message": "message", "dd.trace_id": 11358169777091077368, "dd.span_id": 10408950963809597925}
 {"timestamp": "2022-02-04T19:22:53.023758Z", "level": "INFO", "name": "__main__", "message": "message", "dd.trace_id": "10757167972244692274", "dd.span_id": "17946703329510150602"}
 {"timestamp": "2022-02-04T19:27:39.007483Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "10595304924782731523", "dd.trace_id": "5808393148430880228"}
+{"timestamp": "2022-02-08T13:50:22.525558Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "14261637583091814492", "dd.trace_id": "4240649611722543034"}
+{"timestamp": "2022-02-08T14:02:09.948161Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "10369449155219226697", "dd.trace_id": "4692463253997759753"}
+{"timestamp": "2022-02-08T14:05:31.949893Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "2103415407545650789", "dd.trace_id": "15548068507257468081"}
+{"timestamp": "2022-02-08T14:09:12.300035Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "8246424056541615038", "dd.trace_id": "3053758423475458822"}
+{"timestamp": "2022-02-09T10:00:22.616042Z", "level": "INFO", "name": "__main__", "message": "message", "dd.span_id": "5232058919206903948", "dd.trace_id": "6548029408712885205"}

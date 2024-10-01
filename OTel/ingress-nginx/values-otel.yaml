@@ -1,0 +1,63 @@
+image:
+  repository: otel/opentelemetry-collector-contrib
+  tag: 0.102.0
+
+config:
+  connectors:
+    datadog/connector:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:2000
+
+  processors:
+    batch:
+      timeout: 1s  # Optional: Maximum time to wait before sending a batch, default is 200ms
+      send_batch_size: 512  # Optional: Maximum number of items to batch, default is 8192
+    resource:
+      attributes:
+        - key: deployment.environment
+          value: production
+          action: upsert
+
+  exporters:
+    logging:
+      loglevel: debug
+    datadog:
+      api:
+        key: "${DD_API_KEY}"
+    debug:
+      verbosity: detailed
+
+  service:
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [resource, batch]
+        exporters: [debug, logging, datadog, datadog/connector]
+      metrics:
+        receivers: [otlp, datadog/connector]
+        processors: [batch, resource]
+        exporters: [debug, logging, datadog]
+      logs:
+        receivers: [otlp]
+        processors: [resource, batch]
+        exporters: [debug, logging, datadog]
+
+extraEnvs:
+  - name: DD_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: datadog-api-key
+        key: api-key
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi

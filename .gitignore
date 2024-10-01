@@ -49,3 +49,9 @@ __pycache__/
 
 ### ignore dd-java-agent.jar ###
 dd-java-agent.jar
+
+### ignore vagrant files
+.vagrant/
+
+### ignore python virtualenv files
+virtual_env/

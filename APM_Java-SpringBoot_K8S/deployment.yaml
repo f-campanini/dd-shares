@@ -18,14 +18,9 @@ spec:
         app: demo
     spec:
       containers:
-      - image: dockerfradd/public-repo:v0.3-debug
+      - image: dockerfradd/public-repo
         name: public-repo
         resources: {}
-        env:
-          - name: DD_AGENT_HOST
-            valueFrom:
-              fieldRef:
-                fieldPath: status.hostIP
 status: {}
 ---
 apiVersion: v1

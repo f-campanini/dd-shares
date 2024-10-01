@@ -4,7 +4,7 @@ services:
     image: "gcr.io/datadoghq/agent:latest"
     container_name: datadog-agent
     env_file:
-      - DD_API_KEY= #add your DD API Key here
+      - DD_API_KEY=<MY_SUPER_SECRET_KEY>
     environment:
       - DD_APM_ENABLED=true
       - DD_LOGS_ENABLED=true 

@@ -1,0 +1,12 @@
+USER-SUPPLIED VALUES:
+USER-SUPPLIED VALUES: null
+controller:
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-arn: arn:aws:elasticloadbalancing:eu-south-1:601427279990:loadbalancer/app/fra-alb/18912d09cd5146b6
+data:
+  enable-opentelemetry: "true"
+  error-log-level: debug
+  opentelemetry-collector-host: my-opentelemetry-collector.default.svc.cluster.local
+  opentelemetry-collector-port: "4317"
+  opentelemetry-service-name: nginx-ingress
