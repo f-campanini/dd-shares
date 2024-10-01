@@ -1,6 +1,0 @@
-data:
-  enable-opentelemetry: "true"
-  error-log-level: debug
-  opentelemetry-collector-host: my-opentelemetry-collector.default.svc.cluster.local
-  opentelemetry-collector-port: "4317"
-  opentelemetry-service-name: nginx-ingress
