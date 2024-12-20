@@ -15,6 +15,8 @@ presets:
   # This adds Kubernetes metadata to logs and metrics.
   kubernetesAttributes:
     enabled: true
+  kubeletMetrics:
+    enabled: true
 
 config:
   extensions: 
@@ -24,6 +26,18 @@ config:
       traces:
         span_name_as_resource_name: true
   receivers:
+    kubeletstats:
+      collection_interval: 60s
+      auth_type: "none"
+      endpoint: "http://10.0.2.15:10255"
+      #auth_type: "tls"
+      #endpoint: "https://10.0.2.15:10250"
+      #cert_file: "/mnt/certs/apiserver.crt"  # Path to apiserver cert
+      #key_file: "/mnt/certs/apiserver.key"   # Path to apiserver key
+      #ca_file: "/mnt/certs/ca.crt"           # Path to CA cert
+      #insecure_skip_verify: false  # Set to true if Minikube's kubelet certificate is self-signed and not trusted
+      extra_metadata_labels:
+        - container.id
     otlp:
       protocols:
         grpc:
@@ -68,7 +82,7 @@ config:
         processors: [resource, batch]
         exporters: [debug, logging, datadog, datadog/connector]
       metrics:
-        receivers: [hostmetrics, otlp, datadog/connector]
+        receivers: [hostmetrics, kubeletstats, otlp, datadog/connector]
         processors: [batch, resource]
         exporters: [debug, logging, datadog]
       logs:
@@ -89,8 +103,8 @@ extraEnvs:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 256Mi
+    cpu: 750m
+    memory: 512Mi
   requests:
     cpu: 250m
     memory: 128Mi
@@ -99,7 +113,25 @@ readinessProbe:
   httpGet:
     path: /
     port: 13133
-  initialDelaySeconds: 30
-  timeoutSeconds: 5
+  initialDelaySeconds: 120
+  timeoutSeconds: 10
   periodSeconds: 10
   failureThreshold: 3
+livenessProbe:
+  httpGet:
+    path: /
+    port: 13133
+  initialDelaySeconds: 120
+  timeoutSeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
+
+extraVolumeMounts:
+  - name: minikube-certs
+    mountPath: /mnt/certs  # Path inside the pod where certs will be mounted
+
+extraVolumes:
+  - name: minikube-certs
+    hostPath:
+      path: /var/lib/minikube/certs  # Path on Minikube where certs are located
+      type: Directory
