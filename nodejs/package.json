@@ -1,0 +1,14 @@
+{
+    "name": "simple-node-app",
+    "version": "1.0.0",
+    "description": "A simple Node.js application running inside a container",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "author": "Francesco",
+    "license": "MIT",
+    "dependencies": {
+        "dd-trace": "^2.46.0"
+    }
+}
