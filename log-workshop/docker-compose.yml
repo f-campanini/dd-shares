@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  workshop:
+    build: .
+    container_name: dd-logs-workshop
+    
+    # ==========================================================================
+    # ISOLATION: No ports exposed, no Docker socket mounted
+    # This container is completely isolated from the host Datadog agent
+    # ==========================================================================
+    network_mode: bridge
+    
+    environment:
+      # Required: Your Datadog API key
+      - DD_API_KEY=${DD_API_KEY}
+      
+      # Optional: Datadog site (default: datadoghq.com)
+      # Use datadoghq.eu for EU, us3.datadoghq.com for US3, etc.
+      - DD_SITE=${DD_SITE:-datadoghq.com}
+      
+      # Hostname for the containerized agent (required for isolated containers)
+      - DD_HOSTNAME=logs-workshop-container
+      
+      # All agent config (logs, remote_updates, apm, etc.) is in datadog/datadog.yaml
+      # Avoid environment variables that could override the nested YAML structure
+      
+      # Log generator settings (optional overrides)
+      - API_GATEWAY_RATE=${API_GATEWAY_RATE:-30}
+      - PAYMENT_SERVICE_RATE=${PAYMENT_SERVICE_RATE:-20}
+      - USER_SERVICE_RATE=${USER_SERVICE_RATE:-25}
+      - LEGACY_MONOLITH_RATE=${LEGACY_MONOLITH_RATE:-15}
+      - ERROR_RATE=${ERROR_RATE:-10}
+      - BURST_PROBABILITY=${BURST_PROBABILITY:-5}
+      
+      # Intentional issues (for workshop scenarios)
+      - ENABLE_BROKEN_TIMESTAMPS=${ENABLE_BROKEN_TIMESTAMPS:-true}
+      - ENABLE_MISSING_FIELDS=${ENABLE_MISSING_FIELDS:-true}
+      - ENABLE_MULTILINE_ISSUES=${ENABLE_MULTILINE_ISSUES:-true}
+      - ENABLE_MIXED_FORMATS=${ENABLE_MIXED_FORMATS:-true}
+    
+    # NO ports exposed - completely isolated from host
+    # NO volumes mounted - no access to host filesystem or Docker socket
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "agent", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

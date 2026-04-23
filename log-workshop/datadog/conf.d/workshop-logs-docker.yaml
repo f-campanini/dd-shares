@@ -1,0 +1,52 @@
+# =============================================================================
+# Datadog Agent - Workshop Logs Configuration (Docker)
+# =============================================================================
+# Pre-configured for the workshop container
+# =============================================================================
+
+logs:
+  # -------------------------------------------------------------------------
+  # API Gateway - JSON Format
+  # -------------------------------------------------------------------------
+  - type: file
+    path: /var/log/workshop/api-gateway.log
+    service: api-gateway
+    source: api-gateway
+    tags:
+      - env:workshop
+      - format:json
+
+  # -------------------------------------------------------------------------
+  # Payment Service - JSON Format (with nested objects)
+  # -------------------------------------------------------------------------
+  - type: file
+    path: /var/log/workshop/payment-service.log
+    service: payment-service
+    source: payment-service
+    tags:
+      - env:workshop
+      - format:json
+
+  # -------------------------------------------------------------------------
+  # User Service - XML Format
+  # -------------------------------------------------------------------------
+  # WORKSHOP CHALLENGE: XML multiline logs appear as separate entries!
+  - type: file
+    path: /var/log/workshop/user-service.log
+    service: user-service
+    source: user-service
+    tags:
+      - env:workshop
+      - format:xml
+
+  # -------------------------------------------------------------------------
+  # Legacy Monolith - Plain text with Java stack traces
+  # -------------------------------------------------------------------------
+  # WORKSHOP CHALLENGE: Java stack traces appear as separate log entries!
+  - type: file
+    path: /var/log/workshop/legacy-monolith.log
+    service: legacy-monolith
+    source: legacy-monolith
+    tags:
+      - env:workshop
+      - format:plaintext

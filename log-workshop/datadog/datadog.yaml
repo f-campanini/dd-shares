@@ -1,0 +1,24 @@
+# =============================================================================
+# Datadog Agent Configuration for Workshop Container
+# =============================================================================
+
+# Enable log collection
+logs_enabled: true
+
+# Enable Remote Configuration (manage from Datadog UI)
+remote_configuration:
+  enabled: true
+
+# Enable Remote Updates / Agent Management (Fleet Automation)
+remote_updates: true
+
+# Disable features not needed for this workshop (isolated container)
+apm_config:
+  enabled: false
+
+process_config:
+  process_collection:
+    enabled: false
+
+# DogStatsD - only listen internally
+dogstatsd_non_local_traffic: false
